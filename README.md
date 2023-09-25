@@ -8,6 +8,14 @@
 
 ` yarn add react-redux`: integração do **react** com o _Redux_
 
+**Store**: é o estado global, toda aplicação vai ter acesso a ele.
+
 **Reducer**: São as informações que vão ser compartilhadas nos components da aplicação
 
 **Slice**: fatias/partes de estados
+
+**actions**: ações/porta de entrada que podem alterar as informações dos estados
+
+**useSelector**: para buscar informações do estado
+
+**dispatch**: disparar ações que vão realizar alterações no estado.
