@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { MessageCircle } from "lucide-react";
 
 import { Header } from "../components/Header";
@@ -6,15 +7,27 @@ import { Video } from "../components/Video";
 import { Module } from "../components/Module";
 
 import { useAppSelector } from "../store";
-import { useCurrentLesson } from "../store/slices/player";
+import { useCurrentLesson, start } from "../store/slices/player";
+import { api } from "../lib/axios";
 
 export function Player() {
-  const modules = useAppSelector((state) => state.player.course.modules);
+  const dispatch = useDispatch();
+
+  const modules = useAppSelector((state) => state.player.course?.modules);
 
   const { currentLesson } = useCurrentLesson();
 
   useEffect(() => {
-    document.title = `assistindo: ${currentLesson.title} | Cognu-co`;
+    api.get("/courses/1").then((response) => {
+      const data = response.data;
+      dispatch(start(data));
+    });
+  }, []);
+
+  useEffect(() => {
+    if (currentLesson) {
+      document.title = `assistindo: ${currentLesson.title} | Cognu-co`;
+    }
   }, [currentLesson]);
 
   return (
@@ -35,14 +48,15 @@ export function Player() {
           </div>
 
           <aside className="absolute top-0 bottom-0 right-0 w-80 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-auto scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-            {modules.map((module, index) => (
-              <Module
-                key={module.id}
-                moduleIndex={index}
-                title={module.title}
-                amountOfLessons={module.lessons.length}
-              />
-            ))}
+            {modules &&
+              modules.map((module, index) => (
+                <Module
+                  key={module.id}
+                  moduleIndex={index}
+                  title={module.title}
+                  amountOfLessons={module.lessons.length}
+                />
+              ))}
           </aside>
         </main>
       </div>

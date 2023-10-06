@@ -12,6 +12,10 @@ export function Video() {
     dispatch(next());
   }
 
+  if (!currentLesson) {
+    return <h1>Selecione uma lição</h1>;
+  }
+
   return (
     <div className="w-full bg-zinc-950 aspect-video">
       <Player
