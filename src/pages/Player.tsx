@@ -10,8 +10,8 @@ import { loadCourse, useCurrentLesson } from "../store/slices/player";
 
 export function Player() {
   const dispatch = useAppDispatch();
-
   const modules = useAppSelector((state) => state.player.course?.modules);
+  const isCourseLoading = useAppSelector((state) => state.player.isLoading);
 
   const { currentLesson } = useCurrentLesson();
 
@@ -43,7 +43,36 @@ export function Player() {
           </div>
 
           <aside className="absolute top-0 bottom-0 right-0 w-80 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-auto scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-            {modules &&
+            {isCourseLoading ? (
+              <div className="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+                <div className="animate-pulse flex space-x-4">
+                  <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                        <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                      </div>
+                      <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-4 w-full bg-transparent"></div>
+                <div className="animate-pulse flex space-x-4">
+                  <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                        <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                      </div>
+                      <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              modules &&
               modules.map((module, index) => (
                 <Module
                   key={module.id}
@@ -51,7 +80,8 @@ export function Player() {
                   title={module.title}
                   amountOfLessons={module.lessons.length}
                 />
-              ))}
+              ))
+            )}
           </aside>
         </main>
       </div>
