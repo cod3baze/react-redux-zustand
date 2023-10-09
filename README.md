@@ -16,6 +16,14 @@
 
 **actions**: ações/porta de entrada que podem alterar as informações dos estados
 
+**createAsyncThunk**: (action) ações assíncronas
+
 **useSelector**: para buscar informações do estado
 
 **dispatch**: disparar ações que vão realizar alterações no estado.
+
+```ts
+  extraReducers(builder) {
+    builder.addCase(loadCourse.fulfilled, function(state, action){}); // executa uma função quando for *Fulfilled*
+  },
+```
