@@ -27,3 +27,14 @@
     builder.addCase(loadCourse.fulfilled, function(state, action){}); // executa uma função quando for *Fulfilled*
   },
 ```
+
+## Zustand
+
+`yarn add zustand`: lib completa com todas as funções do **zustand**
+
+**create**: cria o _store_ da aplicação
+
+> o seu retorno determina as informações do store que vão ser compartilhadas na aplicação
+
+**(get)=> {}**: serve para buscar uma informação que está salva no store
+**(set)=> {}**: serve para atualizar alguma informação do store
