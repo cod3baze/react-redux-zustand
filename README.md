@@ -38,3 +38,10 @@
 
 **(get)=> {}**: serve para buscar uma informação que está salva no store
 **(set)=> {}**: serve para atualizar alguma informação do store
+
+> quando se usa o _useStore()_ sem especificar a variável, ele fica observando todo o Store
+
+```ts
+const { isLoading } = useStore(); // observa o store global.
+const isLoading = useStore((store) => store.isLoading); // observa apenas o *isLoading*
+```
